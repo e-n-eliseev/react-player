@@ -1,0 +1,78 @@
+$width: 250px;
+%flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+%text {
+    font-weight: 600;
+    max-width: 300px;
+    text-align: center;
+    padding: 0;
+    margin: 10px auto;
+}
+%shadow {
+    box-shadow: 0 0 15px black;
+}
+.App {
+    @extend %flex;
+    min-height: 100vh;
+    padding: 5px;
+}
+
+.player {
+    width: 365px;
+    min-height: 365px;
+    border-radius: 10px;
+    @extend %shadow;
+    flex-direction: column;
+    @extend %flex;
+    justify-content: flex-start;
+    padding: 20px;
+}
+.track {
+    &__cover {
+        width: $width;
+        height: $width;
+        border-radius: 10px;
+        border: 1px solid black;
+        position: relative;
+        overflow: hidden;
+        @extend %shadow;
+    }
+    &__img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+    }
+    &__artist {
+        font-size: 16px;
+        text-transform: uppercase;
+        @extend %text;
+    }
+    &__title {
+        @extend %text;
+    }
+    &__time {
+        width: $width;
+        @extend %flex;
+        justify-content: space-between;
+    }
+    &__time p {
+        padding: 0;
+        margin: 0;
+    }
+    &__progress {
+        width: $width;
+    }
+}
+.controls {
+    list-style-type: none;
+    padding: 0;
+    width: $width;
+    @extend %flex;
+    justify-content: space-between;
+}
