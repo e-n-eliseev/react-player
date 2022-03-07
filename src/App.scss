@@ -12,7 +12,7 @@ $width: 250px;
     margin: 10px auto;
 }
 %shadow {
-    box-shadow: 0 0 15px black;
+    box-shadow: 0 0 25px black;
 }
 .App {
     @extend %flex;
@@ -20,15 +20,31 @@ $width: 250px;
     padding: 5px;
 }
 
-.player {
+.player,
+.track__list {
     width: 365px;
-    min-height: 365px;
     border-radius: 10px;
     @extend %shadow;
     flex-direction: column;
     @extend %flex;
     justify-content: flex-start;
     padding: 20px;
+    position: relative;
+    box-sizing: border-box;
+}
+.player {
+    z-index: 2;
+    background-color: azure;
+    min-height: 450px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    max-height: 667px;
+    overflow: hidden;
+    @extend %shadow;
+    background-color: transparent;
+    border-radius: 10px;
 }
 .track {
     &__cover {
@@ -39,6 +55,10 @@ $width: 250px;
         position: relative;
         overflow: hidden;
         @extend %shadow;
+        &--small {
+            width: 75px;
+            height: 75px;
+        }
     }
     &__img {
         position: absolute;
@@ -47,14 +67,28 @@ $width: 250px;
         top: 0;
         left: 0;
         object-fit: cover;
+        &--playing {
+            -webkit-animation: play 2s linear infinite;
+            animation: play 2s linear infinite;
+        }
     }
     &__artist {
-        font-size: 16px;
+        font-size: 30px;
+        padding-top: 10px;
         text-transform: uppercase;
         @extend %text;
+        &--small {
+            font-size: 15px;
+        }
     }
-    &__title {
+    &__title,
+    &__time_current,
+    &__time_end {
         @extend %text;
+        font-size: 20px;
+        &--small {
+            font-size: 10px;
+        }
     }
     &__time {
         width: $width;
@@ -67,6 +101,53 @@ $width: 250px;
     }
     &__progress {
         width: $width;
+        cursor: pointer;
+    }
+    &__list {
+        z-index: 1;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow: hidden scroll;
+        margin: -15px 0 0 0;
+        padding: 20px 5px 5px 5px;
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgb(177, 177, 177);
+            border-radius: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgb(107, 107, 107);
+        }
+        &__item {
+            @extend %flex;
+            gap: 20px;
+            justify-content: space-between;
+            width: 330px;
+            border-radius: 10px;
+            background-color: azure;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+                background-color: #e0ffff;
+            }
+        }
+        &__info {
+            flex-grow: 1;
+        }
+        &__empty {
+            text-align: center;
+            padding: 10px;
+            font-weight: 700;
+            tab-size: 20px;
+        }
     }
 }
 .controls {
@@ -75,4 +156,40 @@ $width: 250px;
     width: $width;
     @extend %flex;
     justify-content: space-between;
+    &__play,
+    &__prev,
+    &__pause,
+    &__next {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: none;
+        text-align: center;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+.svg-inline--fa {
+    height: 40px;
+}
+
+@-webkit-keyframes play {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes play {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

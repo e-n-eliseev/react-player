@@ -1,9 +1,22 @@
+import Track from "./Track";
 
-const TrackList = () => {
+const TrackList = ({ trackList, isPlaying, setTrackNumber }) => {
     return (
-        <div className="">
-
-        </div>
+        <ul className="track__list">
+            {!!trackList
+                ? trackList.map((item, index) => {
+                    return <Track
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        isPlaying={isPlaying}
+                        setTrackNumber={setTrackNumber} />
+                })
+                : <p className="track__list__empty">
+                    Your track list is empty
+                </p>
+            }
+        </ul>
     )
 }
 

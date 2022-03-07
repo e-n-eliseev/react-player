@@ -1,4 +1,5 @@
-.App, .player, .track__time, .controls {
+.App, .player,
+.track__list, .track__time, .track__list__item, .controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10,7 +11,7 @@
           justify-content: center;
 }
 
-.track__artist, .track__title {
+.track__artist, .track__title, .track__time_current, .track__time_end {
   font-weight: 600;
   max-width: 300px;
   text-align: center;
@@ -18,9 +19,10 @@
   margin: 10px auto;
 }
 
-.player, .track__cover {
-  -webkit-box-shadow: 0 0 15px black;
-          box-shadow: 0 0 15px black;
+.player,
+.track__list, .container, .track__cover {
+  -webkit-box-shadow: 0 0 25px black;
+          box-shadow: 0 0 25px black;
 }
 
 .App {
@@ -28,9 +30,9 @@
   padding: 5px;
 }
 
-.player {
+.player,
+.track__list {
   width: 365px;
-  min-height: 365px;
   border-radius: 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -40,6 +42,29 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   padding: 20px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.player {
+  z-index: 2;
+  background-color: azure;
+  min-height: 450px;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 667px;
+  overflow: hidden;
+  background-color: transparent;
+  border-radius: 10px;
 }
 
 .track__cover {
@@ -49,6 +74,11 @@
   border: 1px solid black;
   position: relative;
   overflow: hidden;
+}
+
+.track__cover--small {
+  width: 75px;
+  height: 75px;
 }
 
 .track__img {
@@ -61,9 +91,27 @@
      object-fit: cover;
 }
 
+.track__img--playing {
+  -webkit-animation: play 2s linear infinite;
+  animation: play 2s linear infinite;
+}
+
 .track__artist {
-  font-size: 16px;
+  font-size: 30px;
+  padding-top: 10px;
   text-transform: uppercase;
+}
+
+.track__artist--small {
+  font-size: 15px;
+}
+
+.track__title, .track__time_current, .track__time_end {
+  font-size: 20px;
+}
+
+.track__title--small, .track__time_current--small, .track__time_end--small {
+  font-size: 10px;
 }
 
 .track__time {
@@ -80,6 +128,76 @@
 
 .track__progress {
   width: 250px;
+  cursor: pointer;
+}
+
+.track__list {
+  z-index: 1;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  overflow: hidden scroll;
+  margin: -15px 0 0 0;
+  padding: 20px 5px 5px 5px;
+}
+
+.track__list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.track__list::-webkit-scrollbar-thumb {
+  background: #b1b1b1;
+  border-radius: 5px;
+}
+
+.track__list::-webkit-scrollbar-track {
+  background: #6b6b6b;
+}
+
+.track__list__item {
+  gap: 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 330px;
+  border-radius: 10px;
+  background-color: azure;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.track__list__item:hover {
+  background-color: #e0ffff;
+}
+
+.track__list__info {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.track__list__empty {
+  text-align: center;
+  padding: 10px;
+  font-weight: 700;
+  -moz-tab-size: 20px;
+    -o-tab-size: 20px;
+       tab-size: 20px;
 }
 
 .controls {
@@ -89,5 +207,47 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.controls__play, .controls__prev, .controls__pause, .controls__next {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.controls__play:hover, .controls__prev:hover, .controls__pause:hover, .controls__next:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.svg-inline--fa {
+  height: 40px;
+}
+
+@-webkit-keyframes play {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes play {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 /*# sourceMappingURL=App.css.map */

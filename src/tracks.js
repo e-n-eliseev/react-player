@@ -17,7 +17,7 @@ const tracks = [
         id: 3,
         url: "https://cdn.pixabay.com/audio/2022/01/26/audio_d0c6ff1bdd.mp3?filename=the-cradle-of-your-soul-15700.mp3",
         title: "The Cradle of Your Soul",
-        artist: "lemonmusicstudio",
+        artist: "lemon musicstudio",
         cover: "https://www.bensound.com/bensound-img/happyrock.jpg"
     },
 ];
