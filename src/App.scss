@@ -1,4 +1,5 @@
-$width: 250px;
+$width: 200px;
+$active-color: #b3ff00;
 %flex {
     display: flex;
     align-items: center;
@@ -14,10 +15,16 @@ $width: 250px;
 %shadow {
     box-shadow: 0 0 25px black;
 }
+* {
+    padding: 0;
+    margin: 0;
+}
 .App {
     @extend %flex;
     min-height: 100vh;
-    padding: 5px;
+    padding: 0 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: flex-start;
 }
 
 .player,
@@ -34,17 +41,16 @@ $width: 250px;
 }
 .player {
     z-index: 2;
-    background-color: azure;
-    min-height: 450px;
+    min-height: 350px;
 }
 .container {
     display: flex;
     flex-direction: column;
-    max-height: 667px;
     overflow: hidden;
     @extend %shadow;
     background-color: transparent;
     border-radius: 10px;
+    margin-top: 20px;
 }
 .track {
     &__cover {
@@ -56,8 +62,8 @@ $width: 250px;
         overflow: hidden;
         @extend %shadow;
         &--small {
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
         }
     }
     &__img {
@@ -77,7 +83,11 @@ $width: 250px;
         padding-top: 10px;
         text-transform: uppercase;
         @extend %text;
+        min-height: 70px;
         &--small {
+            min-height: auto;
+            padding: 0;
+            margin: 0;
             font-size: 15px;
         }
     }
@@ -87,11 +97,13 @@ $width: 250px;
         @extend %text;
         font-size: 20px;
         &--small {
+            padding: 0;
+            margin: 0;
             font-size: 10px;
         }
     }
     &__time {
-        width: $width;
+        width: $width + 50px;
         @extend %flex;
         justify-content: space-between;
     }
@@ -100,7 +112,7 @@ $width: 250px;
         margin: 0;
     }
     &__progress {
-        width: $width;
+        width: $width + 50px;
         cursor: pointer;
     }
     &__list {
@@ -113,8 +125,9 @@ $width: 250px;
         justify-content: flex-start;
         align-items: flex-start;
         overflow: hidden scroll;
-        margin: -15px 0 0 0;
-        padding: 20px 5px 5px 5px;
+        padding: 5px;
+        max-height: 185px;
+        background-color: #c0d4d4;
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -153,7 +166,7 @@ $width: 250px;
 .controls {
     list-style-type: none;
     padding: 0;
-    width: $width;
+    width: $width + 50px;
     @extend %flex;
     justify-content: space-between;
     &__play,
@@ -166,9 +179,12 @@ $width: 250px;
         background-color: transparent;
         border: none;
         text-align: center;
-        transition: 0.2s ease-in-out;
+        transition: 0.1s ease-in-out;
         &:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+        &:active {
+            transform: scale(0.9);
         }
     }
 }
@@ -191,5 +207,33 @@ $width: 250px;
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+.background {
+    min-width: 100vw;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+}
+.tooltip {
+    z-index: 3;
+}
+.playing {
+    transition: 5s;
+    background: linear-gradient(45deg, $active-color 10%, #00ffb3 100%) no-repeat;
+    animation: colorChange 20s alternate infinite;
+}
+.idle {
+    transition: 5s;
+    background: #00ffb3;
+}
+@keyframes colorChange {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
     }
 }

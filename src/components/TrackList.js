@@ -1,6 +1,12 @@
 import Track from "./Track";
 
-const TrackList = ({ trackList, isPlaying, setTrackNumber }) => {
+const TrackList = ({
+    trackList,
+    isPlaying,
+    setTrackNumber,
+    trackNumber,
+    currentTrack
+}) => {
     return (
         <ul className="track__list">
             {!!trackList
@@ -9,8 +15,10 @@ const TrackList = ({ trackList, isPlaying, setTrackNumber }) => {
                         key={item.id}
                         item={item}
                         index={index}
+                        trackNumber={trackNumber}
                         isPlaying={isPlaying}
-                        setTrackNumber={setTrackNumber} />
+                        setTrackNumber={setTrackNumber}
+                        currentTrack={currentTrack} />
                 })
                 : <p className="track__list__empty">
                     Your track list is empty
