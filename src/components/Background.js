@@ -1,5 +1,5 @@
 
-const Background = ({ isColor, isPlaying }) => {
+const Background = ({ isPlaying }) => {
 
     return (
         <div className={`background ${isPlaying ? "playing" : "idle"}`} />

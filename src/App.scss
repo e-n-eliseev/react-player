@@ -1,5 +1,5 @@
 $width: 200px;
-$active-color: #b3ff00;
+$active-color: #05fb4f;
 %flex {
     display: flex;
     align-items: center;
@@ -30,8 +30,6 @@ $active-color: #b3ff00;
 .player,
 .track__list {
     width: 365px;
-    border-radius: 10px;
-    @extend %shadow;
     flex-direction: column;
     @extend %flex;
     justify-content: flex-start;
@@ -40,8 +38,10 @@ $active-color: #b3ff00;
     box-sizing: border-box;
 }
 .player {
+    border-radius: 10px 10px 0 0;
     z-index: 2;
     min-height: 350px;
+    @extend %shadow;
 }
 .container {
     display: flex;
@@ -96,6 +96,7 @@ $active-color: #b3ff00;
     &__time_end {
         @extend %text;
         font-size: 20px;
+        min-width: 55px;
         &--small {
             padding: 0;
             margin: 0;
@@ -127,7 +128,7 @@ $active-color: #b3ff00;
         overflow: hidden scroll;
         padding: 5px;
         max-height: 185px;
-        background-color: #c0d4d4;
+        background-color: transparent;
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -149,7 +150,7 @@ $active-color: #b3ff00;
             cursor: pointer;
             transition: 0.3s;
             &:hover {
-                background-color: #e0ffff;
+                background-color: #00e29e;
             }
         }
         &__info {
@@ -166,7 +167,7 @@ $active-color: #b3ff00;
 .controls {
     list-style-type: none;
     padding: 0;
-    width: $width + 50px;
+    flex-wrap: wrap;
     @extend %flex;
     justify-content: space-between;
     &__play,
@@ -221,7 +222,6 @@ $active-color: #b3ff00;
     z-index: 3;
 }
 .playing {
-    transition: 5s;
     background: linear-gradient(45deg, $active-color 10%, #00ffb3 100%) no-repeat;
     animation: colorChange 20s alternate infinite;
 }

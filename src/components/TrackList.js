@@ -1,3 +1,4 @@
+//import component
 import Track from "./Track";
 
 const TrackList = ({
@@ -5,13 +6,15 @@ const TrackList = ({
     isPlaying,
     setTrackNumber,
     trackNumber,
-    currentTrack
+    currentTrack,
+    currentTrackTime
 }) => {
     return (
         <ul className="track__list">
             {!!trackList
                 ? trackList.map((item, index) => {
                     return <Track
+                        currentTrackTime={currentTrackTime}
                         key={item.id}
                         item={item}
                         index={index}

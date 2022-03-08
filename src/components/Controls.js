@@ -1,30 +1,40 @@
+//import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause, faStepForward, faStepBackward, faMusic } from '@fortawesome/fontawesome-free-solid';
+import {
+    faPlay,
+    faPause,
+    faStepForward,
+    faStepBackward,
+    faMusic,
+    faSync,
+    faArrowDown
+} from '@fortawesome/fontawesome-free-solid';
+//import react - tooltip component
 import ReactTooltip from "react-tooltip";
 
 const Controls = ({
+    changeTrack,
     isPlaying,
-    trackNumber,
-    setTrackNumber,
-    length,
     setIsPlaying,
-    setIsVisible
+    setIsVisible,
+    setPlayMode,
+    isLooped
 }) => {
+    //changing track handler
     const onChangeTrack = (action) => {
-        if (action === "+") {
-            trackNumber === length - 1 ? setTrackNumber(0) : setTrackNumber(trackNumber += 1);
-
-        } else {
-            trackNumber === 0 ? setTrackNumber(length - 1) : setTrackNumber(trackNumber -= 1);
-
-        }
-
+        changeTrack(action);
     }
+    //play/pause handler
     const onPlayPause = () => {
-        setIsPlaying(!isPlaying)
+        setIsPlaying((prev) => !prev)
     }
+    //handler of setting vision of the track list
     const onChangeVision = () => {
         setIsVisible((prev) => !prev);
+    }
+    //handler of changing play mode
+    const onChangePlayMode = () => {
+        setPlayMode((prev) => !prev);
     }
     return (
         <ul className="controls">
@@ -32,6 +42,7 @@ const Controls = ({
                 data-tip data-for="previous" onClick={() => onChangeTrack("-")}>
                 <FontAwesomeIcon icon={faStepBackward} />
             </button></li>
+            {/* visibility of play/pause buttons */}
             {!isPlaying
                 ? <li><button className="controls__play"
                     data-tip data-for="play" onClick={onPlayPause}>
@@ -45,6 +56,19 @@ const Controls = ({
                 data-tip data-for="next" onClick={() => onChangeTrack("+")}>
                 <FontAwesomeIcon icon={faStepForward} />
             </button></li>
+            {/* visibility of mode buttons */}
+            {isLooped
+                ? <li><button className="controls__next"
+                    data-tip data-for="loop" onClick={onChangePlayMode}>
+                    <FontAwesomeIcon icon={faSync} />
+                </button></li>
+                : <li><button className="controls__next"
+                    data-tip data-for="loop" onClick={onChangePlayMode}>
+                    <FontAwesomeIcon icon={faArrowDown} />
+                </button></li>
+
+            }
+
             <li><button className="controls__next" data-tip data-for="trackListVision" onClick={onChangeVision}>
                 <FontAwesomeIcon icon={faMusic} />
             </button></li>
@@ -59,6 +83,12 @@ const Controls = ({
             </ReactTooltip>
             <ReactTooltip className='tooltip' id="next" place="top" effect="solid">
                 Click to hear next track!
+            </ReactTooltip>
+            <ReactTooltip className='tooltip' id="loop" place="top" effect="solid">
+                {isLooped
+                    ? "Click to hear playlist once!"
+                    : "Click to repeat playlist!"
+                }
             </ReactTooltip>
         </ul>
     )
