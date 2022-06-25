@@ -7,7 +7,9 @@ import {
     faStepBackward,
     faMusic,
     faSync,
-    faArrowDown
+    faArrowDown,
+    faPlus,
+    faMinus
 } from '@fortawesome/fontawesome-free-solid';
 //import react - tooltip component
 import ReactTooltip from "react-tooltip";
@@ -18,7 +20,8 @@ const Controls = ({
     setIsPlaying,
     setIsVisible,
     setPlayMode,
-    isLooped
+    isLooped,
+    volume
 }) => {
     //changing track handler
     const onChangeTrack = (action) => {
@@ -35,6 +38,21 @@ const Controls = ({
     //handler of changing play mode
     const onChangePlayMode = () => {
         setPlayMode((prev) => !prev);
+    }
+    //handler of changing volume
+    const onChangeVolume = (action) => {
+        if (action === "+") {
+            if (volume.current === 1) {
+                return;
+            }
+            volume.current += 0.1;
+            console.log(volume.current)
+        } else {
+            if (volume.current === 0) {
+                return;
+            }
+            volume.current -= 0.1;
+        }
     }
     return (
         <ul className="controls">

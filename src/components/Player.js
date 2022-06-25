@@ -35,6 +35,7 @@ const Player = () => {
     //reference for track object
     let audio = useRef(new Audio(url));
 
+
     //function which is calculate total duration of the track in seconds
     const durationToSeconds = useCallback((duration) => {
         const arr = duration.split(":");
