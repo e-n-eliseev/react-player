@@ -1,7 +1,8 @@
 //import react-tooltip component
+import { memo } from "react";
 import ReactTooltip from "react-tooltip";
 
-const Track = ({
+const Track = memo(({
     item,
     isPlaying,
     setTrackNumber,
@@ -41,6 +42,6 @@ const Track = ({
             </ReactTooltip>
         </li >
     )
-}
+})
 
 export default Track;
